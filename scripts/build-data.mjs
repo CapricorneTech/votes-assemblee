@@ -29,9 +29,19 @@ async function fetchAndExtract(name, url) {
   const fresh = fs.existsSync(zip) && Date.now() - fs.statSync(zip).mtimeMs < MAX_AGE_MS;
   if (FORCE || !fresh) {
     console.log(`↓ ${name}`);
-    const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (suivi-votes-an)" } });
-    if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`);
-    fs.writeFileSync(zip, Buffer.from(await res.arrayBuffer()));
+    // Le serveur coupe parfois la connexion : on réessaie plusieurs fois.
+    for (let essai = 1; ; essai++) {
+      try {
+        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (suivi-votes-an)" } });
+        if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`);
+        fs.writeFileSync(zip, Buffer.from(await res.arrayBuffer()));
+        break;
+      } catch (e) {
+        if (essai >= 5) throw e;
+        console.log(`  échec (${e.cause?.code || e.message}), nouvel essai ${essai + 1}/5…`);
+        await new Promise((r) => setTimeout(r, essai * 5000));
+      }
+    }
     fs.rmSync(dir, { recursive: true, force: true });
   }
   if (!fs.existsSync(dir)) {
