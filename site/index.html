@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Votes de l'Assemblée — qui a voté quoi ?</title>
+<meta name="description" content="Suivez simplement les textes de loi examinés à l'Assemblée nationale et les votes de chaque groupe politique et de chaque député.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231d3557'/><path d='M8 17l5 5 11-12' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#/"><span class="logo" aria-hidden="true">✓</span> Votes de l'Assemblée</a>
+    <nav id="nav">
+      <a href="#/textes">Textes</a>
+      <a href="#/scrutins">Scrutins</a>
+      <a href="#/groupes">Groupes</a>
+      <a href="#/deputes">Députés</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="app"><p class="loading">Chargement des données…</p></main>
+<footer class="wrap foot">
+  <p>Données : <a href="https://data.assemblee-nationale.fr/" target="_blank" rel="noopener">open data de l'Assemblée nationale</a> (Licence Ouverte). <span id="maj"></span></p>
+  <p>Site indépendant, sans lien avec l'Assemblée nationale. Seuls les scrutins publics sont recensés : les votes à main levée ne laissent pas de trace nominative.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
